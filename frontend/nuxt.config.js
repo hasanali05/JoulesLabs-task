@@ -1,4 +1,6 @@
 export default {
+  ssr: false,
+  target: 'static',
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'frontend',
@@ -63,13 +65,13 @@ export default {
           type: 'Bearer'
         },
         user: {
-            property: 'user',
+            property: false,
             autoFetch: false
         },
         endpoints: {
           login: { url: '/api/login', method: 'post' },
           logout: { url: '/api/logout', method: 'post' },
-          user: false,
+          user: { url: '/api/user', method: 'get', propertyName: false },
         }
       },
     },
