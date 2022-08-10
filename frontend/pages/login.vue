@@ -68,7 +68,11 @@ export default {
                 this.message = err.response.data.message
             })
             .then((res) => {
-                this.$auth.setUser(res.data)
+                let user = res.data;
+                this.$auth.setUser(user);
+                this.$auth.setUserToken(user.token);
+                this.$auth.$storage.setUniversal('user', JSON.stringify(user))
+                this.$axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`;
                 this.$nextTick(() => {
                     this.redirect('/forms');
                 })

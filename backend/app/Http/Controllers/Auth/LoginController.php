@@ -20,6 +20,9 @@ class LoginController extends Controller
             // return response()->json(['errors' => ['email' => ['invalid credential.']]], 422);
             throw new AuthenticationException();
         }
-        return auth()->user();
+        $user = auth()->user();
+
+        $user->token = $user->createToken('web')->plainTextToken;
+        return $user;
     }
 }
