@@ -57,26 +57,18 @@ export default {
             }
         },
         login() {
-            this.$auth.loginWith('laravelSanctum', {
-                data: {
-                    email: this.form.email,
-                    password: this.form.password,
-                }
-            })
-            .catch((err) => {
-                this.allErrors = err.response.data.errors; 
-                this.message = err.response.data.message
-            })
-            .then((res) => {
-                let user = res.data;
-                this.$auth.setUser(user);
-                this.$auth.setUserToken(user.token);
-                this.$auth.$storage.setUniversal('user', JSON.stringify(user))
-                this.$axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`;
-                this.$nextTick(() => {
-                    this.redirect('/forms');
+            this.allErrors = null;
+
+            this.$store.dispatch('authModule/login', this.form)
+                .then((response) => {
+                    this.$nextTick(() => {
+                        this.redirect('/forms');
+                    })
                 })
-            })
+                .catch((err) => {
+                    this.allErrors = err.errors ; 
+                    this.message = err.message
+                })
         }
     }
 }

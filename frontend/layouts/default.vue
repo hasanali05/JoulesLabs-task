@@ -28,7 +28,7 @@ export default {
     name: 'LayoutsDefault',
     methods: {
         logout() {
-            this.$auth.logout();
+            this.$store.dispatch('authModule/logout')
         }
     }
 }

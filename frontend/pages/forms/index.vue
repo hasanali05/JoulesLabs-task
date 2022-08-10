@@ -53,13 +53,13 @@ export default {
       }
     },
     async fetch() {
-      this.forms = await this.$axios.$get('forms')
+      this.forms = await this.$axios.$get('api/forms')
     },
     methods: {
         async statusChange(formId, key, value) {
             if(!await this.takeConfirmation('this will change the status!')) return;
 
-            this.$axios.$post(`forms/${formId}/status-change`, {
+            this.$axios.$post(`api/forms/${formId}/status-change`, {
                 key: key,
                 value: value,
             })
@@ -75,7 +75,7 @@ export default {
         async deleteForm(formId, key, value) {
             if(!await this.takeConfirmation('this will delete form and form related data!')) return;
 
-            this.$axios.$delete(`forms/${formId}`)
+            this.$axios.$delete(`api/forms/${formId}`)
             .then((response) => {
                 this.$fetch();
                 this.$swal(

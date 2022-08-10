@@ -63,7 +63,7 @@ export default {
         }
     },
     async asyncData({params, $axios}) {
-        const form = await $axios.$get(`forms/${params.slug}`).catch((err) => {
+        const form = await $axios.$get(`api/forms/${params.slug}`).catch((err) => {
             return {message : err.response.data.message}
         })
         return form;
@@ -74,7 +74,7 @@ export default {
             return value.split(",");
         }, 
         submit() {
-            this.$axios.$post(`forms/${this.slug}/submit`, {fields: this.fields})
+            this.$axios.$post(`api/forms/${this.slug}/submit`, {fields: this.fields})
                 .then((response) => {
                     this.$swal(
                         'Successful!',

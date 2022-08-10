@@ -51,7 +51,7 @@ export default {
 
   auth: {
     strategies: {
-      'laravelSanctum': {
+      'local': {
         provider: 'laravel/sanctum',
         // url: "https://blooming-beach-30533.herokuapp.com",
         url: process.env.BASE_URL,
@@ -85,7 +85,7 @@ export default {
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
     // baseURL: "https://blooming-beach-30533.herokuapp.com/api",
-    baseURL: process.env.BASE_URL_API,
+    baseURL: process.env.BASE_URL,
     credentials: true,
     headers: {
       common: {

@@ -172,7 +172,7 @@ export default {
             }
         },
         submit() {
-            this.$axios.$post(`forms`, this.form)
+            this.$axios.$post(`api/forms`, this.form)
                 .then((response) => {
                     this.$swal(
                         'Successful!',

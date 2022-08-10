@@ -68,7 +68,8 @@ export default {
             }
         },
         register() {
-            this.$axios.$post(`register`, this.form)
+            this.allErrors = null;
+            this.$store.dispatch('authModule/register', this.form)
                 .then((response) => {
                     this.$swal(
                         'Successful!',
@@ -80,27 +81,23 @@ export default {
                     })
                 })
                 .catch((err) => {
-                    this.allErrors = err.response.data.errors; 
-                    this.message = err.response.data.message
+                    this.allErrors = err.errors
+                    this.message = err.message
                 })
         },
         login() {
-            this.$auth.loginWith('laravelSanctum', {
-                data: {
-                    email: this.form.email,
-                    password: this.form.password,
-                }
-            })
-            .catch((err) => {
-                this.allErrors = err.response.data.errors; 
-                this.message = err.response.data.message
-            })
-            .then((res) => {
-                this.$auth.setUser(res.data)
-                this.$nextTick(() => {
-                    this.redirect('/forms');
+            this.allErrors = null;
+
+            this.$store.dispatch('authModule/login', this.form)
+                .then((response) => {
+                    this.$nextTick(() => {
+                        this.redirect('/forms');
+                    })
                 })
-            })
+                .catch((err) => {
+                    this.allErrors = err.errors ; 
+                    this.message = err.message
+                })
         }
     }
 }
